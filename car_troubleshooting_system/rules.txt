@@ -1,0 +1,133 @@
+IF engine_does_not_start THEN CHECK battery_dead
+IF engine_does_not_start THEN CHECK starter_motor
+IF engine_does_not_start THEN CHECK alternator
+IF engine_does_not_start THEN CHECK ignition_switch
+IF engine_does_not_start THEN CHECK fuel_pump
+IF engine_does_not_start THEN CHECK spark_plug
+IF engine_does_not_start THEN CHECK crankshaft_position_sensor
+IF engine_does_not_start THEN CHECK lack_oil
+
+IF starter_motor THEN CHECK starter_motor_connections
+IF alternator THEN CHECK alternator_belt, alternator_voltage
+IF ignition_switch THEN CHECK ignition_wiring
+IF fuel_pump THEN CHECK fuel_filter, fuel_pump_relay
+IF spark_plug THEN CHECK spark_plug_gap, ignition_coil
+IF crankshaft_position_sensor THEN CHECK sensor_wiring
+IF lack_oil THEN CHECK oil_level, oil_pump
+IF battery_dead THEN CHECK replace_battery
+
+IF car_pulls_to_one_side THEN CHECK wheel_alignment
+IF car_pulls_to_one_side THEN CHECK tire_pressure
+
+IF engine_overheats THEN CHECK coolant_level
+IF engine_overheats THEN CHECK radiator_fan
+IF engine_overheats THEN CHECK thermostat
+IF engine_overheats THEN CHECK lack_oil
+IF engine_overheats THEN CHECK issues_at_belts_and_hoses
+IF engine_overheats THEN CHECK water_pump
+
+IF coolant_level THEN CHECK refill_coolant
+IF radiator_fan THEN CHECK fan_wiring
+IF thermostat THEN CHECK thermostat_function
+IF lack_oil THEN CHECK oil_level, oil_pump
+IF issues_at_belts_and_hoses THEN CHECK belts, hoses
+IF water_pump THEN CHECK pump_operation
+
+IF headlights_dim THEN CHECK burnt_out_bulb
+IF headlights_dim THEN CHECK battery
+IF headlights_dim THEN CHECK alternator
+IF headlights_dim THEN CHECK lens_oxidation
+IF headlights_dim THEN CHECK headlight_tinting
+IF headlights_dim THEN CHECK wiring_problems
+IF alternator_faulty THEN CHECK replace_alternator
+
+IF headlights_dim THEN CHECK burnt_out_bulb
+IF headlights_dim THEN CHECK battery
+IF headlights_dim THEN CHECK alternator
+IF headlights_dim THEN CHECK lens_oxidation
+IF headlights_dim THEN CHECK headlight_tinting
+IF headlights_dim THEN CHECK wiring_problems
+
+IF battery THEN CHECK replace_battery
+IF alternator THEN CHECK replace_alternator
+IF burnt_out_bulb THEN CHECK replace_bulb
+IF lens_oxidation THEN CHECK clean_lens
+IF headlight_tinting THEN CHECK remove_tint
+IF wiring_problems THEN CHECK repair_wiring
+
+IF strange_noise_from_brakes THEN CHECK worn_brake_pads
+IF strange_noise_from_brakes THEN CHECK dirty_brakes
+IF strange_noise_from_brakes THEN CHECK lack_of_lubrication
+IF strange_noise_from_brakes THEN CHECK warped_rotor
+IF strange_noise_from_brakes THEN CHECK stuck_wheel_cylinder
+
+IF worn_brake_pads THEN CHECK replace_brake_pads
+IF dirty_brakes THEN CHECK clean_brakes
+IF lack_of_lubrication THEN CHECK lubricate_brakes
+IF warped_rotor THEN CHECK replace_rotor
+IF stuck_wheel_cylinder THEN CHECK repair_wheel_cylinder
+
+IF exhaust_smoke_black THEN CHECK air_filter
+IF exhaust_smoke_black THEN CHECK fuel_injectors
+IF exhaust_smoke_black THEN CHECK damaged_EGR
+IF exhaust_smoke_black THEN CHECK damaged_DPF
+IF exhaust_smoke_black THEN CHECK damaged_piston_rings
+IF exhaust_smoke_black THEN CHECK engine_deposits
+
+IF air_filter THEN CHECK replace_air_filter
+IF fuel_injectors THEN CHECK clean_or_replace_injectors
+IF damaged_EGR THEN CHECK repair_EGR
+IF damaged_DPF THEN CHECK replace_DPF
+IF damaged_piston_rings THEN CHECK repair_piston_rings
+IF engine_deposits THEN CHECK engine_cleaning
+
+IF exhaust_smoke_blue THEN CHECK engine_oil_seals
+IF exhaust_smoke_blue THEN CHECK blown_head_gasket
+IF exhaust_smoke_blue THEN CHECK faulty_PCV_valve
+IF exhaust_smoke_blue THEN CHECK leaking_inlet_manifold
+IF exhaust_smoke_blue THEN CHECK glow_plug
+
+IF engine_oil_seals THEN CHECK replace_oil_seals
+IF blown_head_gasket THEN CHECK repair_or_replace_head_gasket
+IF faulty_PCV_valve THEN CHECK replace_PCV_valve
+IF leaking_inlet_manifold THEN CHECK repair_inlet_manifold
+IF glow_plug THEN CHECK replace_glow_plug
+
+IF steering_wheel_vibrates THEN CHECK wheel_balance
+IF steering_wheel_vibrates THEN CHECK suspension
+
+IF suspension THEN CHECK repair_suspension
+
+IF air_conditioner_not_cooling THEN CHECK refrigerant_level
+IF air_conditioner_not_cooling THEN CHECK compressor
+
+IF refrigerant_level THEN CHECK refill_refrigerant
+IF compressor THEN CHECK repair_or_replace_compressor
+
+IF check_engine_light_on THEN CHECK oxygen_sensor
+IF check_engine_light_on THEN CHECK catalytic_converter
+IF check_engine_light_on THEN CHECK loose_fuel_cap
+IF check_engine_light_on THEN CHECK spark_plugs
+IF check_engine_light_on THEN CHECK glow_plug
+IF check_engine_light_on THEN CHECK lack_oil
+
+IF oxygen_sensor THEN CHECK replace_oxygen_sensor
+IF catalytic_converter THEN CHECK replace_catalytic_converter
+IF loose_fuel_cap THEN CHECK tighten_fuel_cap
+IF spark_plugs THEN CHECK replace_spark_plugs
+IF glow_plug THEN CHECK replace_glow_plug
+IF lack_oil THEN CHECK refill_oil
+
+IF poor_acceleration THEN CHECK fuel_pump
+IF poor_acceleration THEN CHECK spark_plugs
+IF poor_acceleration THEN CHECK throttle_body
+
+IF throttle_body THEN CHECK clean_throttle_body
+IF fuel_pump THEN CHECK repair_or_replace_fuel_pump
+
+IF car_not_moving_in_gear THEN CHECK transmission_fluid
+IF car_not_moving_in_gear THEN CHECK clutch
+
+IF transmission_fluid THEN CHECK refill_transmission_fluid
+IF clutch THEN CHECK replace_clutch
+
