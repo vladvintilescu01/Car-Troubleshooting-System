@@ -1,4 +1,5 @@
 #inference_engine
+import os
 from difflib import get_close_matches
 
 # alternative phrases for symptoms
@@ -101,8 +102,8 @@ def normalize(symptom):
 #load rules
 def load_rules():
     """Return all rules known by system"""
+    file_rules = os.path.join(os.path.dirname(__file__), "rules.txt")
     rules_loaded = []
-    file_rules = "rules.txt"
     with open(file_rules, "r") as file:
         for each_line in file:
             if each_line.strip() and each_line.startswith("IF"):
