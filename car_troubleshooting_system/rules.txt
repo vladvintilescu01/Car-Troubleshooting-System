@@ -1,4 +1,5 @@
 IF engine_does_not_start THEN CHECK battery_dead
+IF engine_does_not_start THEN CHECK starter_motor
 IF engine_does_not_start THEN CHECK alternator
 IF engine_does_not_start THEN CHECK ignition_switch
 IF engine_does_not_start THEN CHECK fuel_pump
@@ -12,6 +13,7 @@ IF ignition_switch THEN CHECK ignition_wiring
 IF fuel_pump THEN CHECK fuel_filter, fuel_pump_relay
 IF spark_plug THEN CHECK spark_plug_gap, ignition_coil
 IF crankshaft_position_sensor THEN CHECK sensor_wiring
+IF lack_oil THEN CHECK oil_level, oil_pump
 IF battery_dead THEN CHECK replace_battery
 
 IF car_pulls_to_one_side THEN CHECK wheel_alignment
@@ -37,12 +39,21 @@ IF headlights_dim THEN CHECK alternator
 IF headlights_dim THEN CHECK lens_oxidation
 IF headlights_dim THEN CHECK headlight_tinting
 IF headlights_dim THEN CHECK wiring_problems
+IF alternator_faulty THEN CHECK replace_alternator
+
+IF headlights_dim THEN CHECK burnt_out_bulb
+IF headlights_dim THEN CHECK battery
+IF headlights_dim THEN CHECK alternator
+IF headlights_dim THEN CHECK lens_oxidation
+IF headlights_dim THEN CHECK headlight_tinting
+IF headlights_dim THEN CHECK wiring_problems
 
 IF battery THEN CHECK replace_battery
 IF alternator THEN CHECK replace_alternator
 IF burnt_out_bulb THEN CHECK replace_bulb
 IF lens_oxidation THEN CHECK clean_lens
 IF headlight_tinting THEN CHECK remove_tint
+IF wiring_problems THEN CHECK repair_wiring
 
 IF strange_noise_from_brakes THEN CHECK worn_brake_pads
 IF strange_noise_from_brakes THEN CHECK dirty_brakes
@@ -70,11 +81,13 @@ IF damaged_DPF THEN CHECK replace_DPF
 IF damaged_piston_rings THEN CHECK repair_piston_rings
 IF engine_deposits THEN CHECK engine_cleaning
 
+IF exhaust_smoke_blue THEN CHECK engine_oil_seals
 IF exhaust_smoke_blue THEN CHECK blown_head_gasket
 IF exhaust_smoke_blue THEN CHECK faulty_PCV_valve
 IF exhaust_smoke_blue THEN CHECK leaking_inlet_manifold
 IF exhaust_smoke_blue THEN CHECK glow_plug
 
+IF engine_oil_seals THEN CHECK replace_oil_seals
 IF blown_head_gasket THEN CHECK repair_or_replace_head_gasket
 IF faulty_PCV_valve THEN CHECK replace_PCV_valve
 IF leaking_inlet_manifold THEN CHECK repair_inlet_manifold
@@ -110,10 +123,10 @@ IF poor_acceleration THEN CHECK spark_plugs
 IF poor_acceleration THEN CHECK throttle_body
 
 IF throttle_body THEN CHECK clean_throttle_body
+IF fuel_pump THEN CHECK repair_or_replace_fuel_pump
 
 IF car_not_moving_in_gear THEN CHECK transmission_fluid
 IF car_not_moving_in_gear THEN CHECK clutch
 
 IF transmission_fluid THEN CHECK refill_transmission_fluid
 IF clutch THEN CHECK replace_clutch
-
