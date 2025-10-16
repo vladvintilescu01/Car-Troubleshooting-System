@@ -1,5 +1,5 @@
 import streamlit as st
-from inference_engine import load_rules, find_causes_with_chain, normalize
+from inference_engine import load_rules, find_causes_with_chain, normalize, find_common_causes
 
 # --- Page configuration ---
 st.set_page_config(
@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 # --- Header ---
-st.title("🚗 Car Troubleshooting Helper")
+st.title("🚗 Car Troubleshooting System")
 st.markdown(
     """
     🛠️ Describe your car's symptoms below, separated by commas. 
@@ -35,21 +35,23 @@ if st.button("🔎 Analyze"):
         symptoms = [normalize(s) for s in symptoms_input.split(",")]
         st.subheader("🧭 Analysis Results")
 
-        for symptom in symptoms:
+        if len(symptoms) == 1:
+            # Existing single symptom logic
+            symptom = symptoms[0]
             causes = find_causes_with_chain(symptom, rules)
-            st.markdown(f"### 🔹 Symptom: {symptom.capitalize()}")
+        else:
+            # AND logic for multiple symptoms
+            causes = find_common_causes(symptoms, rules)
 
-            if causes:
-                st.markdown("💡 **Possible issues and suggestions:**")
-
-                for idx, cause in enumerate(causes, 1):
-                    steps = [step.strip() for step in cause.split("->")]
-                    # Use expander for each cause chain
-                    with st.expander(f"Option {idx}: {steps[0].replace('_', ' ').capitalize()}"):
-                        for i, step in enumerate(steps):
-                            icon = "🔹" if i == 0 else "&nbsp;&nbsp;&nbsp;&nbsp;🔧"
-                            friendly_step = step.replace("_", " ").capitalize()
-                            st.markdown(f"{icon} {friendly_step}")
-                st.success("✅ Following these steps should help fix your car!")
-            else:
-                st.error("⚠️ We couldn't classify this symptom. Consider visiting a mechanic.")
+        if causes:
+            st.markdown("💡 **Possible issues and suggestions:**")
+            for idx, cause in enumerate(causes, 1):
+                steps = [step.strip() for step in cause.split("->")]
+                with st.expander(f"Option {idx}: {steps[0].replace('_',' ').capitalize()}"):
+                    for i, step in enumerate(steps):
+                        icon = "🔹" if i == 0 else "&nbsp;&nbsp;&nbsp;&nbsp;🔧"
+                        friendly_step = step.replace("_"," ").capitalize()
+                        st.markdown(f"{icon} {friendly_step}")
+            st.success("✅ Following these steps should help fix your car!")
+        else:
+            st.error("⚠️ We couldn't classify these symptoms together. Consider visiting a mechanic.")
