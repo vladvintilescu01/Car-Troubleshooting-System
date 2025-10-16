@@ -10,9 +10,12 @@ st.set_page_config(
 )
 
 # --- Header ---
-st.title("🚗 Car Troubleshooting System")
+st.title("🚗 Car Troubleshooting Helper")
 st.markdown(
-    "Enter your car's **symptoms** below (comma-separated), and get step-by-step **possible causes and fixes**."
+    """
+    🛠️ Describe your car's symptoms below, separated by commas. 
+    You'll get **easy-to-understand suggestions** for possible issues and what you can do to fix them.
+    """
 )
 
 # --- Load rules ---
@@ -20,32 +23,33 @@ rules = load_rules()
 
 # --- User input ---
 symptoms_input = st.text_area(
-    "🩺 Enter symptoms (comma-separated):",
-    placeholder="e.g., engine does not start, strange noise under hood"
+    "Describe your car's symptoms:",
+    placeholder="e.g., engine won't start, dim headlights, strange noise"
 )
 
 # --- Analyze button ---
-if st.button("🔍 Analyze Symptoms"):
+if st.button("🔎 Analyze"):
     if symptoms_input.strip() == "":
-        st.warning("⚠️ Please enter at least one symptom!")
+        st.warning("⚠️ Please describe at least one symptom!")
     else:
-        # Normalize all symptoms
         symptoms = [normalize(s) for s in symptoms_input.split(",")]
         st.subheader("🧭 Analysis Results")
 
         for symptom in symptoms:
-            # Get all possible cause chains for this symptom
-            causes_list = find_causes_with_chain(symptom, rules)
+            causes = find_causes_with_chain(symptom, rules)
+            st.markdown(f"### 🔹 Symptom: {symptom.capitalize()}")
 
-            st.markdown(f"### 🧩 Symptom: {symptom.replace('_',' ').title()}")
+            if causes:
+                st.markdown("💡 **Possible issues and suggestions:**")
 
-            if causes_list:
-                for idx, chain in enumerate(causes_list, 1):
-                    with st.expander(f"⚙️ Option {idx}: Possible Cause and Fix Chain"):
-                        for step_idx, step in enumerate(chain):
-                            indent = "&nbsp;&nbsp;&nbsp;&nbsp;" * step_idx
-                            icon = "🔹" if step_idx == 0 else "🔧"
-                            st.markdown(f"{indent}{icon} **{step.replace('_',' ').title()}**")
-                st.success("✅ After checking these steps, your problem should be resolved.")
+                for idx, cause in enumerate(causes, 1):
+                    steps = [step.strip() for step in cause.split("->")]
+                    # Use expander for each cause chain
+                    with st.expander(f"Option {idx}: {steps[0].replace('_', ' ').capitalize()}"):
+                        for i, step in enumerate(steps):
+                            icon = "🔹" if i == 0 else "&nbsp;&nbsp;&nbsp;&nbsp;🔧"
+                            friendly_step = step.replace("_", " ").capitalize()
+                            st.markdown(f"{icon} {friendly_step}")
+                st.success("✅ Following these steps should help fix your car!")
             else:
-                st.error("🚫 Cannot classify this symptom. Please check a service.")
+                st.error("⚠️ We couldn't classify this symptom. Consider visiting a mechanic.")

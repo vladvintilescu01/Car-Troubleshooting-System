@@ -1,5 +1,4 @@
 #inference_engine
-import os
 from difflib import get_close_matches
 
 # alternative phrases for symptoms
@@ -102,8 +101,8 @@ def normalize(symptom):
 #load rules
 def load_rules():
     """Return all rules known by system"""
-    file_rules = os.path.join(os.path.dirname(__file__), "rules.txt")
     rules_loaded = []
+    file_rules = "rules.txt"
     with open(file_rules, "r") as file:
         for each_line in file:
             if each_line.strip() and each_line.startswith("IF"):
@@ -114,25 +113,24 @@ def load_rules():
 
     return rules_loaded
 
-def forward_chain(symptom, rules):
-    """Return a step-by-step chain starting from symptom, if it exists"""
-    chain = []
-    current = symptom.lower()
-    visited = set()
+def forward_chain(symptom, rules, visited=None):
+    """Return full chain of causes for a symptom"""
+    if visited is None:
+        visited = set()
 
-    while True:
-        next_fact = None
-        for condition, result in rules:
-            if condition.lower() == current and result.lower() not in visited:
-                next_fact = result
-                break
-        if next_fact:
-            chain.append(next_fact)
-            visited.add(next_fact.lower())
-            current = next_fact.lower()
-        else:
-            break
-    return chain
+    chains = []
+    for condition, result in rules:
+        if condition.lower() == symptom.lower() and result.lower() not in visited:
+            visited.add(result.lower())
+            # Recursively find next steps
+            sub_chains = forward_chain(result, rules, visited.copy())
+            if sub_chains:
+                for sub in sub_chains:
+                    chains.append(f"{result} -> {sub}")
+            else:
+                chains.append(result)
+    return chains
+
 
 
 def find_causes_with_chain(symptom, rules):
